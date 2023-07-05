@@ -25,17 +25,13 @@ const checkReservation = async (req, res, next) => {
   //Burada kişileri farklı vagonlara yerleştirme durumumuzu ve kaç vagona kaçar kişi yerleştireceğimizi tamamen rastgele belirliyoruz
   if (KisilerFarkliVagonlaraYerlestirilebilir) {
     //secilecekVagonSayisi değeri içerisinde rastgele bir vagon sayısı elde ediyoruz ki bu kadar vagona kişilerimizi dağıtalım
-    const secilecekVagonSayisi =
-      Math.floor(Math.random() * (secilebilirVagonlar.length + 1 - 1)) + 1;
+    const secilecekVagonSayisi = Math.floor(Math.random() * (secilebilirVagonlar.length + 1 - 1)) + 1;
     //Eğer program tek vagon üzerinden algoritmayı yaparsa direkt bir vagon seçip yolcuları yerleştiriyoruz
     if (secilecekVagonSayisi == 1) {
       return res.status(200).json({
         RezervasyonYapilabilir: true,
         YerlesimAyrinti: {
-          VagonAdi:
-            secilebilirVagonlar[
-              Math.floor(Math.random() * secilebilirVagonlar.length)
-            ].Ad,
+          VagonAdi:secilebilirVagonlar[Math.floor(Math.random() * secilebilirVagonlar.length)].Ad,
           KisiSayisi: RezervasyonYapilacakKisiSayisi,
         },
       });
@@ -51,14 +47,11 @@ const checkReservation = async (req, res, next) => {
 
       //Bazı durumlarda kalan vagonların hepsi bitmesine rağmen yolcuları eşit dağıtamama durumunda elimizde kalan son yolcuları da rastgele bir vagona yerleştiriyoruz aşağıdaki kod parçasında.
       if (kalanVagonlar.length == 0) {
-        YerlesimAyrinti[
-          Math.floor(Math.random() * (secilecekVagonSayisi - 1)) + 1
-        ].KisiSayisi += secilecekKisiSayisi;
+        YerlesimAyrinti[Math.floor(Math.random() * (secilecekVagonSayisi - 1)) + 1].KisiSayisi += secilecekKisiSayisi;
         break;
       }
       //While döngüsü boyunca kalan vagonlar içerisinden rastgele vagonumuzu da(vagon ismini) secilenVagon değişkeninde tutuyoruz.
-      let secilenVagon =
-        kalanVagonlar[Math.floor(Math.random() * kalanVagonlar.length)].Ad;
+      let secilenVagon =kalanVagonlar[Math.floor(Math.random() * kalanVagonlar.length)].Ad;
 
       YerlesimAyrinti.push({
         VagonAdi: secilenVagon,
@@ -82,9 +75,7 @@ const checkReservation = async (req, res, next) => {
     YerlesimAyrinti: [
       {
         VagonAdi:
-          secilebilirVagonlar[
-            Math.floor(Math.random() * secilebilirVagonlar.length)
-          ].Ad,
+          secilebilirVagonlar[Math.floor(Math.random() * secilebilirVagonlar.length)].Ad,
         KisiSayisi: RezervasyonYapilacakKisiSayisi,
       },
     ],
