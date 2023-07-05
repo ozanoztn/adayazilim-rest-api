@@ -17,7 +17,7 @@ const checkReservation = async (req, res, next) => {
 
   //Doluluk oranı uygun vagon yoksa response'umuzu direkt burada dönüyoruz
   if (!secilebilirVagonlar)
-    res.status(500).json({
+   return res.status(500).json({
       RezervasyonYapilabilir: false,
       YerlesimAyrinti,
     });
